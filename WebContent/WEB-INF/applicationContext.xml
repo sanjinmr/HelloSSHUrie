@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
+		<property name="jdbcUrl"
+			value="jdbc:mysql://localhost/ssh_urie_test"/>
+		<property name="user" value="root"/>
+		<property name="password" value="862525"/>
+	</bean>
+
+	<!-- Spring整合Hibernate -->
+	<!-- 引入Hibernate配置信息===== -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 引入Hibernate配置文件 -->
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml" />
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 开启注解事务,在业务层使用注解@Transactional -->
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
+	<bean id="user" class="com.mys2sh.entity.User">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userDao" class="com.mys2sh.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		<property name="user" ref="user"></property>
+	</bean>
+	<bean id="userAction" class="com.mys2sh.action.UserAction">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="bookDao" class="com.mys2sh.dao.BookDao"></bean>
+	<bean id="queryAction" class="com.mys2sh.action.QueryAction">
+		<property name="book" ref="bookDao"></property>
+	</bean>
+
+</beans>

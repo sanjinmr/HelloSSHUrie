@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"   
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+<hibernate-mapping>
+    <class name="com.mys2sh.entity.User" table="t_user">
+        <!-- 主键 -->
+        <id name="userid" column="userid" type="int" />
+        <property name="name" column="name" type="text" />
+        <property name="password" column="password" type="text" />
+        <property name="email" column="email" type="text" />
+        <property name="mobile" column="mobile" type="text" />
+    </class>
+</hibernate-mapping>

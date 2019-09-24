@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+   <!-- 这个属性使 Hibernate 应用为被选择的数据库生成适当的 SQL。 -->
+   <property name="hibernate.dialect">
+      org.hibernate.dialect.MySQL5Dialect
+   </property>
+	<!-- 配置数据库驱动 -->
+   <property name="hibernate.connection.driver_class">
+      com.mysql.jdbc.Driver
+   </property>
+   <!-- 配置数据库连接URL -->
+   <!-- Assume test is the database name -->
+   <property name="hibernate.connection.url">
+      jdbc:mysql://localhost/ssh_urie_test
+   </property>
+   <!-- 数据库user -->
+   <property name="hibernate.connection.username">root</property>
+   <!-- 数据库user密码 -->
+   <property name="hibernate.connection.password">862525</property>
+   <!-- 配置JDBC内置连接池 -->
+   <property name="hibernate.connection.pool_size">10</property>
+   <!-- 输出运行时生成的SQL语句 -->
+   <property name="show_sql">true</property>
+
+   <!-- 允许在 JDBC 连接中使用自动提交模式。 -->
+   <property name="hibernate.hbm2ddl.auto">update</property>
+   <!-- 配置映射文件 -->
+   <mapping resource="com/mys2sh/entity/User.hbm.xml" />
+</session-factory>
+</hibernate-configuration> 
